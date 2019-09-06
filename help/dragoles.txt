@@ -1,0 +1,4 @@
+mkdir
+echo "text">name.txt
+cat name.txt
+cat test.txt | sed s/replaceit/replacewith/g
