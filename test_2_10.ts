@@ -1,3 +1,4 @@
+// LuukFTF v4.2
 interface IDictionary<TValue> {
     [id: string]: TValue;
 }
@@ -21,20 +22,24 @@ let rgbloop = 0
 let pixelplus = 0
 let buttonAstate = false
 let buttonBstate = false
+let buttonB2state = false
 let melodyState = false
 let melodyIndex = 0
 let timeSinceLastBeat = MS_PER_BEAT
+let sensorState = false
 
 music.setVolume(MUSIC_VOLUME)
 
 
 
-
+// add funtion
 // Dit is een mooie function die ik gemaakt heb.
 function add(x: number, y: number): number {
     return x + y
 }
 
+
+// shuffle string function
 // deze is geleend
 function shuffle(array: string[]) {
     array.sort(() => Math.random() - 0.5);
@@ -43,8 +48,36 @@ function shuffle(array: string[]) {
 
 
 
+// touch buttons
+input.touchA1.onEvent(ButtonEvent.Click, function () {
+    music.playSound("A5")
+})
+/*
+input.touchA2.onEvent(ButtonEvent.Click, function () {
+    music.playSound("B5")
+})
 
+input.touchA3.onEvent(ButtonEvent.Click, function () {
+    music.playSound("C6")
+})
 
+input.touchA4.onEvent(ButtonEvent.Click, function () {
+    music.playSound("D6")
+})
+
+input.touchA5.onEvent(ButtonEvent.Click, function () {
+    music.playSound("E6")
+})
+
+input.touchA6.onEvent(ButtonEvent.Click, function () {
+    music.playSound("F6")
+})
+
+input.touchA7.onEvent(ButtonEvent.Click, function () {
+    music.playSound("G6")
+})
+
+*/
 
 
 // button A
@@ -54,8 +87,9 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
 
     if (input.switchRight()) {
         //switch right, button A
-
-
+        sensorState = !sensorState
+        light.clear()
+        music.stopAllSounds()
 
     } else {
         //switch left, button A
@@ -71,6 +105,7 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
             melodyState = !melodyState
         } else {
             light.clear()
+            music.stopAllSounds()
         }
 
     }
@@ -87,12 +122,17 @@ input.buttonB.onEvent(ButtonEvent.Click, function () {
     if (input.switchRight()) {
         //switch right, button B
 
-        if (buttonBstate) {
+        if (buttonB2state) {
+            light.clear()
+            music.stopAllSounds()
             light.setPixelColor(0, 0xFF00FF)
+
         } else {
             light.clear()
-        }
+            music.stopAllSounds()
 
+        }
+        buttonB2state = !buttonB2state
     } else {
         //switch left, button B
         buttonBstate = !buttonBstate
@@ -111,16 +151,11 @@ input.onSwitchMoved(SwitchDirection.Right, function () {
 })
 
 
+
 // Loop
 forever(function () {
 
-    light.setPixelColor(9, light.hsv(input.lightLevel()))
-    light.setPixelColor(8, light.hsv(input.soundLevel()))
-    light.setPixelColor(7, light.hsv(input.temperature(1)))
-    light.setPixelColor(3, light.hsv(input.rotation(0)))
-    light.setPixelColor(2, light.hsv(input.rotation(1)))
-    light.setPixelColor(1, light.hsv(input.acceleration(Dimension.X)))
-    light.setPixelColor(0, light.hsv(input.acceleration(Dimension.Y)))
+
 
     if (input.switchRight()) {
         // switch right
@@ -132,8 +167,20 @@ forever(function () {
         pixelplus = (pixelplus + 1) % 10
     }
 
+    /*//sensor mode 
+    if (sensorState) {
+        light.setPixelColor(9, light.hsv(input.lightLevel()))
+        light.setPixelColor(8, light.hsv(input.soundLevel()))
+        light.setPixelColor(7, light.hsv(input.temperature(1)))
+        light.setPixelColor(3, light.hsv(input.rotation(0)))
+        light.setPixelColor(2, light.hsv(input.rotation(1)))
+        light.setPixelColor(1, light.hsv(input.acceleration(Dimension.X)))
+        light.setPixelColor(0, light.hsv(input.acceleration(Dimension.Y)))
+    }
+    */
 
-    // music player on button A 
+    // music player mode
+    // on button a press
     if (melodyState) {
         if (timeSinceLastBeat == MS_PER_BEAT) {
             let note = currentMelody[melodyIndex]
