@@ -7,8 +7,10 @@ output:
 servo:
 
 verf
+
 markeerstift
 random arm
+
 scoup
 
 
@@ -17,8 +19,7 @@ wielen 3x
 			x
 			
 			
+			
 	x				x
 	
 	
-
-

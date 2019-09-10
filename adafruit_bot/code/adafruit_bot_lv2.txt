@@ -2,6 +2,7 @@
 
 let onState = false
 
+music.setVolume(255)
 
 
 input.buttonA.onEvent(ButtonEvent.Click, function () {
@@ -9,11 +10,22 @@ input.buttonA.onEvent(ButtonEvent.Click, function () {
 })
 
 
+/*
+forever(function () {
+    if (onState) {
+
+        pause(50)
+        music.playMelody("A10 A9 A9 A8 A7 B7 C6 C7", 100)
+    }
+    pause(100)
+})
+*/
 
 forever(function () {
 
     if (onState) {
         light.setPixelColor(2, 0xFFFFFF)
+        music.baDing.play()
         pins.A1.servoWrite(360)
         pause(1000)
         pins.A1.servoWrite(0)
@@ -24,6 +36,7 @@ forever(function () {
         pause(100)
         pins.A1.servoWrite(180)
         pause(100)
+        music.baDing.play()
         light.clear()
     }
 
@@ -34,6 +47,7 @@ forever(function () {
 
     if (onState) {
         light.setPixelColor(1, 0xFFFFFF)
+        music.jumpUp.play()
         pause(100)
         pins.A2.servoWrite(0)
         pause(100)
