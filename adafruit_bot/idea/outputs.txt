@@ -1,0 +1,24 @@
+input:
+on button stays on
+
+
+output:
+
+servo:
+
+verf
+markeerstift
+random arm
+scoup
+
+
+wielen 3x
+
+			x
+			
+			
+	x				x
+	
+	
+
+

@@ -1,0 +1,17 @@
+
+input.buttonA.onEvent(ButtonEvent.Click, function () {
+    pause(100)
+    pins.A2.servoWrite(0)
+    pause(100)
+    pins.A2.servoWrite(50)
+    pause(100)
+    pins.A2.servoWrite(0)
+    pause(100)
+    pins.A2.servoWrite(360)
+    pause(1000)
+    pins.A2.servoWrite(0)
+    pause(100)
+    pins.A2.servoWrite(180)
+})
+
+
